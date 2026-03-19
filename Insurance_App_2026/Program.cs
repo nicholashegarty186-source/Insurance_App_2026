@@ -42,15 +42,50 @@
             ShowSummary();
         }
 
-        //show title screen
+        // show title screen
         static void ShowTitleScreen()
         {
+            Console.WriteLine(" /$$$$$$                                                                                       /$$$$$$                     \r\n|_  $$_/                                                                                      /$$__  $$                    \r\n  | $$   /$$$$$$$   /$$$$$$$ /$$   /$$  /$$$$$$  /$$$$$$  /$$$$$$$   /$$$$$$$  /$$$$$$       | $$  \\ $$  /$$$$$$   /$$$$$$ \r\n  | $$  | $$__  $$ /$$_____/| $$  | $$ /$$__  $$|____  $$| $$__  $$ /$$_____/ /$$__  $$      | $$$$$$$$ /$$__  $$ /$$__  $$\r\n  | $$  | $$  \\ $$|  $$$$$$ | $$  | $$| $$  \\__/ /$$$$$$$| $$  \\ $$| $$      | $$$$$$$$      | $$__  $$| $$  \\ $$| $$  \\ $$\r\n  | $$  | $$  | $$ \\____  $$| $$  | $$| $$      /$$__  $$| $$  | $$| $$      | $$_____/      | $$  | $$| $$  | $$| $$  | $$\r\n /$$$$$$| $$  | $$ /$$$$$$$/|  $$$$$$/| $$     |  $$$$$$$| $$  | $$|  $$$$$$$|  $$$$$$$      | $$  | $$| $$$$$$$/| $$$$$$$/\r\n|______/|__/  |__/|_______/  \\______/ |__/      \\_______/|__/  |__/ \\_______/ \\_______/      |__/  |__/| $$____/ | $$____/ \r\n                                                                                                       | $$      | $$      \r\n                                                                                                       | $$      | $$      \r\n                                                                                                       |__/      |__/      ");
 
+            Console.WriteLine("This program calculates the insurance");
+            Console.WriteLine("cost for school devices and shows how");
+            Console.WriteLine("their value depreciates over 6 months.");
 
-
+            Console.WriteLine("\nPress ENTER to continue...");
+            Console.ReadLine();
         }
 
-    
-    
+        //process a device
+        static string ProcessDevice()
+        {
+            Console.WriteLine("----- Enter Device Information -----\n");
+
+            string name = CheckName("Enter device name:");
+            int number = CheckInt("Enter number of devices:", 1, 100);
+            decimal cost = CheckDecimal("Enter cost of each device:");
+            int category = CheckInt(
+                "Enter category (1=Laptop, 2=Desktop, 3=Other):",
+                1,
+                3
+            );
+
+            decimal insuranceCost = CalculateInsurance(number, cost);
+
+            reports += GenerateReport(name, number, cost, category);
+
+            deviceCounter++;
+            totalInsurance += insuranceCost;
+
+            // Update most expensive device
+            if (insuranceCost > topCost)
+            {
+                topCost = insuranceCost;
+                topDevice = name;
+            }
+
+            return "\nDevice processed successfully.";
+        }
+
+
     }
 }
