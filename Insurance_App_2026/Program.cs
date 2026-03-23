@@ -141,7 +141,42 @@
             return report;
         }
 
+        //Input Validation
+        static string CheckName(string question)
+        {
+            while (true)
+            {
+                Console.WriteLine(question);
+                string input = Console.ReadLine();
 
+                if (!string.IsNullOrWhiteSpace(input))
+                    return input;
+
+                Console.WriteLine("Invalid name. Please try again.");
+            }
+        }
+
+        static int CheckInt(string question, int min, int max)
+        {
+            while (true)
+            {
+                Console.WriteLine(question);
+
+                try
+                {
+                    int value = Convert.ToInt32(Console.ReadLine());
+
+                    if (value >= min && value <= max)
+                        return value;
+
+                    Console.WriteLine($"Enter a number between {min} and {max}");
+                }
+                catch
+                {
+                    Console.WriteLine("Invalid number.");
+                }
+            }
+        }
 
     }
 }
