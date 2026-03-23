@@ -86,6 +86,62 @@
             return "\nDevice processed successfully.";
         }
 
+        //Insurance Calculation
+        static decimal CalculateInsurance(int number, decimal cost)
+        {
+            if (number > 5)
+            {
+                decimal firstFive = 5 * cost;
+                decimal remaining = (number - 5) * cost * DISCOUNT;
+
+                return firstFive + remaining;
+            }
+
+            return number * cost;
+        }
+
+        //Depreciation Calculation
+        static List<decimal> CalculateDepreciation(decimal cost)
+        {
+            List<decimal> values = new List<decimal>();
+
+            decimal value = cost;
+
+            for (int month = 1; month <= 6; month++)
+            {
+                value *= DEPRECIATION;
+                values.Add(Math.Round(value, 2));
+            }
+
+            return values;
+        }
+
+        // Generate Device Report
+        static string GenerateReport(string name, int number, decimal cost, int category)
+        {
+            string report = "\n------ Device Report ------\n";
+
+            decimal insurance = CalculateInsurance(number, cost);
+
+            report += $"Device Name: {name}\n";
+            report += $"Total Insurance Cost: ${insurance:F2}\n";
+
+            report += "\nMonth   Value\n";
+
+            List<decimal> values = CalculateDepreciation(cost);
+
+            for (int i = 0; i < values.Count; i++)
+            {
+                report += $"{i + 1}       ${values[i]}\n";
+            }
+
+            report += $"CATEGORY: {deviceCategories[category - 1]}\n";
+            report += "---------------------------\n";
+
+            return report;
+        }
+
+
 
     }
 }
