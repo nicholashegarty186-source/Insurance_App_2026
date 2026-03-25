@@ -1,16 +1,15 @@
-﻿namespace Wages_App
+﻿namespace insurance_app
 {
     public class Program
     {
-        // Global Constants
+        // ---------- Global Constants ----------
         public const decimal DISCOUNT = 0.9m;
         public const decimal DEPRECIATION = 0.95m;
 
-        // Global Variables
+        // ---------- Global Variables ----------
         public static decimal totalInsurance = 0.0m;
         public static string topDevice = "";
         public static decimal topCost = 0.0m;
-        public static string CheckName = "";
 
         public static int deviceCounter = 0;
         public static string reports = "";
@@ -23,12 +22,12 @@
             ShowTitleScreen();
 
             char continueInput = 'y';
-
+            Console.Clear();
             while (continueInput == 'y')
             {
-                Console.Clear();
+               
 
-                Console.WriteLine(ProcessDevice());
+                ProcessDevice();
 
                 continueInput = CheckContinueInput(
                     "\nDo you want to enter another device? (y/n)"
@@ -42,10 +41,11 @@
             ShowSummary();
         }
 
-        // show title screen
+        // ---------- Title Screen ----------
         static void ShowTitleScreen()
         {
-            Console.WriteLine(" /$$$$$$                                                                                       /$$$$$$                     \r\n|_  $$_/                                                                                      /$$__  $$                    \r\n  | $$   /$$$$$$$   /$$$$$$$ /$$   /$$  /$$$$$$  /$$$$$$  /$$$$$$$   /$$$$$$$  /$$$$$$       | $$  \\ $$  /$$$$$$   /$$$$$$ \r\n  | $$  | $$__  $$ /$$_____/| $$  | $$ /$$__  $$|____  $$| $$__  $$ /$$_____/ /$$__  $$      | $$$$$$$$ /$$__  $$ /$$__  $$\r\n  | $$  | $$  \\ $$|  $$$$$$ | $$  | $$| $$  \\__/ /$$$$$$$| $$  \\ $$| $$      | $$$$$$$$      | $$__  $$| $$  \\ $$| $$  \\ $$\r\n  | $$  | $$  | $$ \\____  $$| $$  | $$| $$      /$$__  $$| $$  | $$| $$      | $$_____/      | $$  | $$| $$  | $$| $$  | $$\r\n /$$$$$$| $$  | $$ /$$$$$$$/|  $$$$$$/| $$     |  $$$$$$$| $$  | $$|  $$$$$$$|  $$$$$$$      | $$  | $$| $$$$$$$/| $$$$$$$/\r\n|______/|__/  |__/|_______/  \\______/ |__/      \\_______/|__/  |__/ \\_______/ \\_______/      |__/  |__/| $$____/ | $$____/ \r\n                                                                                                       | $$      | $$      \r\n                                                                                                       | $$      | $$      \r\n                                                                                                       |__/      |__/      ");
+            Console.WriteLine(" /$$$$$$ /$$$$$$ \r\n|_ $$_/ /$$__ $$ \r\n | $$ /$$$$$$$ /$$$$$$$ /$$ /$$ /$$$$$$ /$$$$$$ /$$$$$$$ /$$$$$$$ /$$$$$$ | $$ \\ $$ /$$$$$$ /$$$$$$ \r\n | $$ | $$__ $$ /$$_____/| $$ | $$ /$$__ $$|____ $$| $$__ $$ /$$_____/ /$$__ $$ | $$$$$$$$ /$$__ $$ /$$__ $$\r\n | $$ | $$ \\ $$| $$$$$$ | $$ | $$| $$ \\__/ /$$$$$$$| $$ \\ $$| $$ | $$$$$$$$ | $$__ $$| $$ \\ $$| $$ \\ $$\r\n | $$ | $$ | $$ \\____ $$| $$ | $$| $$ /$$__ $$| $$ | $$| $$ | $$_____/ | $$ | $$| $$ | $$| $$ | $$\r\n /$$$$$$| $$ | $$ /$$$$$$$/| $$$$$$/| $$ | $$$$$$$| $$ | $$| $$$$$$$| $$$$$$$ | $$ | $$| $$$$$$$/| $$$$$$$/\r\n|______/|__/ |__/|_______/ \\______/ |__/ \\_______/|__/ |__/ \\_______/ \\_______/ |__/ |__/| $$____/ | $$____/ \r\n | $$ | $$ \r\n | $$ | $$ \r\n |__/ |__/ ");
+
 
             Console.WriteLine("This program calculates the insurance");
             Console.WriteLine("cost for school devices and shows how");
@@ -55,7 +55,7 @@
             Console.ReadLine();
         }
 
-        //process a device
+        // ---------- Process One Device ----------
         static string ProcessDevice()
         {
             Console.WriteLine("----- Enter Device Information -----\n");
@@ -86,7 +86,7 @@
             return "\nDevice processed successfully.";
         }
 
-        //Insurance Calculation
+        // ---------- Insurance Calculation ----------
         static decimal CalculateInsurance(int number, decimal cost)
         {
             if (number > 5)
@@ -100,7 +100,7 @@
             return number * cost;
         }
 
-        //Depreciation Calculation
+        // ---------- Depreciation Calculation ----------
         static List<decimal> CalculateDepreciation(decimal cost)
         {
             List<decimal> values = new List<decimal>();
@@ -116,7 +116,7 @@
             return values;
         }
 
-        // Generate Device Report
+        // ---------- Generate Device Report ----------
         static string GenerateReport(string name, int number, decimal cost, int category)
         {
             string report = "\n------ Device Report ------\n";
@@ -141,7 +141,7 @@
             return report;
         }
 
-        //Input Validation
+        // ---------- Input Validation ----------
         static string CheckName(string question)
         {
             while (true)
@@ -152,7 +152,9 @@
                 if (!string.IsNullOrWhiteSpace(input))
                     return input;
 
-                Console.WriteLine("Invalid name. Please try again.");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("ERROR: Name cannot be empty.");
+                Console.ResetColor();
             }
         }
 
@@ -161,22 +163,75 @@
             while (true)
             {
                 Console.WriteLine(question);
+                string input = Console.ReadLine();
 
-                try
+                if (int.TryParse(input, out int value))
                 {
-                    int value = Convert.ToInt32(Console.ReadLine());
-
                     if (value >= min && value <= max)
                         return value;
 
-                    Console.WriteLine($"Enter a number between {min} and {max}");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"ERROR: Enter a number between {min} and {max}.");
+                    Console.ResetColor();
                 }
-                catch
+                else
                 {
-                    Console.WriteLine("Invalid number.");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("ERROR: Numbers only.");
+                    Console.ResetColor();
                 }
             }
         }
 
+        static decimal CheckDecimal(string question)
+        {
+            while (true)
+            {
+                Console.WriteLine(question);
+                string input = Console.ReadLine();
+
+                if (decimal.TryParse(input, out decimal value))
+                {
+                    if (value > 0)
+                        return value;
+
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("ERROR: Cost must be greater than 0.");
+                    Console.ResetColor();
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("ERROR: Enter a valid number.");
+                    Console.ResetColor();
+                }
+            }
+        }
+
+        static char CheckContinueInput(string question)
+        {
+            while (true)
+            {
+                Console.WriteLine(question);
+                string input = Console.ReadLine().ToLower();
+
+                if (input == "y" || input == "n")
+                    return input[0];
+
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("ERROR: Enter 'y' or 'n' only.");
+                Console.ResetColor();
+            }
+        }
+
+        // ---------- Summary ----------
+        static void ShowSummary()
+        {
+            Console.WriteLine("\n--------- Insurance Summary ---------");
+            Console.WriteLine($"Total Devices Entered: {deviceCounter}");
+            Console.WriteLine($"Total Insurance Cost: ${totalInsurance:F2}");
+            Console.WriteLine($"Most Expensive Device: {topDevice} (${topCost:F2})");
+            Console.WriteLine("-------------------------------------");
+        }
     }
 }
