@@ -1,4 +1,4 @@
-﻿namespace insurance_app
+﻿namespace insurance_app2026
 {
     public class Program
     {
@@ -41,7 +41,7 @@
             ShowSummary();
         }
 
-        // ---------- Title Screen ----------
+        //title screen
         static void ShowTitleScreen()
         {
             Console.WriteLine(" /$$$$$$ /$$$$$$ \r\n|_ $$_/ /$$__ $$ \r\n | $$ /$$$$$$$ /$$$$$$$ /$$ /$$ /$$$$$$ /$$$$$$ /$$$$$$$ /$$$$$$$ /$$$$$$ | $$ \\ $$ /$$$$$$ /$$$$$$ \r\n | $$ | $$__ $$ /$$_____/| $$ | $$ /$$__ $$|____ $$| $$__ $$ /$$_____/ /$$__ $$ | $$$$$$$$ /$$__ $$ /$$__ $$\r\n | $$ | $$ \\ $$| $$$$$$ | $$ | $$| $$ \\__/ /$$$$$$$| $$ \\ $$| $$ | $$$$$$$$ | $$__ $$| $$ \\ $$| $$ \\ $$\r\n | $$ | $$ | $$ \\____ $$| $$ | $$| $$ /$$__ $$| $$ | $$| $$ | $$_____/ | $$ | $$| $$ | $$| $$ | $$\r\n /$$$$$$| $$ | $$ /$$$$$$$/| $$$$$$/| $$ | $$$$$$$| $$ | $$| $$$$$$$| $$$$$$$ | $$ | $$| $$$$$$$/| $$$$$$$/\r\n|______/|__/ |__/|_______/ \\______/ |__/ \\_______/|__/ |__/ \\_______/ \\_______/ |__/ |__/| $$____/ | $$____/ \r\n | $$ | $$ \r\n | $$ | $$ \r\n |__/ |__/ ");
@@ -55,7 +55,7 @@
             Console.ReadLine();
         }
 
-        // ---------- Process One Device ----------
+        //process one device
         static string ProcessDevice()
         {
             Console.WriteLine("----- Enter Device Information -----\n");
@@ -86,7 +86,7 @@
             return "\nDevice processed successfully.";
         }
 
-        // ---------- Insurance Calculation ----------
+        //insurance calculation
         static decimal CalculateInsurance(int number, decimal cost)
         {
             if (number > 5)
@@ -100,7 +100,7 @@
             return number * cost;
         }
 
-        // ---------- Depreciation Calculation ----------
+        //depreciation calculation
         static List<decimal> CalculateDepreciation(decimal cost)
         {
             List<decimal> values = new List<decimal>();
@@ -116,7 +116,7 @@
             return values;
         }
 
-        // ---------- Generate Device Report ----------
+        //generate device report
         static string GenerateReport(string name, int number, decimal cost, int category)
         {
             string report = "\n------ Device Report ------\n";
@@ -124,7 +124,7 @@
             decimal insurance = CalculateInsurance(number, cost);
 
             report += $"Device Name: {name}\n";
-            report += $"Total Insurance Cost: ${insurance:F2}\n";
+            report += $"Total Insurance Cost: {insurance:C}\n";
 
             report += "\nMonth   Value\n";
 
@@ -132,7 +132,7 @@
 
             for (int i = 0; i < values.Count; i++)
             {
-                report += $"{i + 1}       ${values[i]}\n";
+                report += $"{i + 1}       {values[i]:C}\n";
             }
 
             report += $"CATEGORY: {deviceCategories[category - 1]}\n";
@@ -141,7 +141,7 @@
             return report;
         }
 
-        // ---------- Input Validation ----------
+        //vnput validation
         static string CheckName(string question)
         {
             while (true)
@@ -224,7 +224,7 @@
             }
         }
 
-        // ---------- Summary ----------
+        //the summary
         static void ShowSummary()
         {
             Console.WriteLine("\n--------- Insurance Summary ---------");
