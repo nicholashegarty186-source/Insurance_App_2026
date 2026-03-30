@@ -2,11 +2,11 @@
 {
     public class Program
     {
-        // ---------- Global Constants ----------
+        //global constants
         public const decimal DISCOUNT = 0.9m;
         public const decimal DEPRECIATION = 0.95m;
 
-        // ---------- Global Variables ----------
+        //global variables
         public static decimal totalInsurance = 0.0m;
         public static string topDevice = "";
         public static decimal topCost = 0.0m;
