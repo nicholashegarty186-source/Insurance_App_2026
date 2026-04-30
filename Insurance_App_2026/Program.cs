@@ -4,7 +4,7 @@
     {
         //global constants
         public const decimal DISCOUNT = 0.9m;
-        public const decimal DEPRECIATION = 0.95m;
+        public const decimal DEPRECIATION = 0.95m; 
 
         //global variables
         public static decimal totalInsurance = 0.0m;
@@ -25,8 +25,6 @@
             Console.Clear();
             while (continueInput == 'y')
             {
-               
-
                 ProcessDevice();
 
                 continueInput = CheckContinueInput(
@@ -60,7 +58,7 @@
             Console.WriteLine("----- Enter Device Information -----\n");
 
             string name = CheckName("Enter device name:");
-            int number = CheckInt("Enter number of devices:", 1, 100);
+            int number = CheckInt("Enter number of devices:", 1, 1000);
             decimal cost = CheckDecimal("Enter cost of each device:");
             int category = CheckInt(
                 "Enter category (1=Laptop, 2=Desktop, 3=Other):",
@@ -140,7 +138,7 @@
             return report;
         }
 
-        //vnput validation
+        //input validation
         static string CheckName(string question)
         {
             while (true)
